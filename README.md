@@ -1,7 +1,7 @@
 # Tank Terraform
 
 IMPORTANT: don't forget to destroy after experiment:  
-`terraform destroy --var-file <provider>/terraform.tfvars provider`
+`terraform destroy --var-file <provider>/terraform.tfvars <provider>`
 
 The Tank infrastructure is ready to be deployed in the AWS, Microsoft Azure and OpenStack cloud platforms.
 Terraform provisions the infrastructure and Ansible will setup the needed software components.
