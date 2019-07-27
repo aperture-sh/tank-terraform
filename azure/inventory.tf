@@ -15,5 +15,5 @@ data  "template_file" "azure" {
 
 resource "local_file" "azure_file" {
   content  = "${data.template_file.azure.rendered}"
-  filename = "./tank-ansible/azure-hosts"
+  filename = "./tank-ansible/cloud-hosts"
 }

@@ -15,5 +15,5 @@ data  "template_file" "openstack" {
 
 resource "local_file" "openstack_file" {
   content  = "${data.template_file.openstack.rendered}"
-  filename = "./tank-ansible/openstack-hosts"
+  filename = "./tank-ansible/cloud-hosts"
 }
