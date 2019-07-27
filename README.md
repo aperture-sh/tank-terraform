@@ -30,7 +30,7 @@ The following steps are needed to setup everything up:
 The following steps are needed to setup everything up:
 
 * You will need a working AZ CLI (setup using `az login`).
-* Set necessary variables in `terraform.tfvars`. The docker login is needed to pull the tank image.
+* Set necessary variables in `./azure/terraform.tfvars`. The docker login is needed to pull the tank image.
 * Set number of nodes, instance_type or other variables as needed.
 * `terraform ini ./azure` to setup terraform environment
 * `terraform apply --var-file azure/terraform.tfvars azure` so setup infrastructre in Azure
@@ -40,7 +40,7 @@ The following steps are needed to setup everything up:
 The following steps are needed to setup everything up:
 
 * You will need a working OpenStack CLI (setup using `source ./PROJECT-openrc.sh`).
-* Set necessary variables in `terraform.tfvars`. The docker login is needed to pull the tank image.
+* Set necessary variables in `./openstack/terraform.tfvars`. The docker login is needed to pull the tank image.
 * Set number of nodes, instance_type or other variables as needed.
 * `terraform init ./openstack` to setup terraform environment
 * `terraform apply --var-file openstack/terraform.tfvars openstack` so setup infrastructre in OpenStack
