@@ -3,13 +3,18 @@
 IMPORTANT: don't forget to destroy after experiment:  
 `terraform destroy`
 
+The Tank infrastructure is ready to be deployed in the AWS, Microsoft Azure and OpenStack cloud platforms.
+Terraform provisions the infrastructure and Ansible will setup the needed software components.
+
+![](assets/img/azure-logo.png)
+![](assets/img/aws-logo.png)
+![](assets/img/aws-openstack.png)
+
+* This repo uses submodules. For cloning use `git clone --recursive`
+
 ## Tank Terraform AWS
 
-Terraform workflow to AWS and Ansible Inventory file template
-
-This repo uses submodules. For cloning use `git clone --recursive`.
-
-The following steps are needed to setup a Tank database:
+The following steps are needed to setup everything up:
 
 * You will need a working AWS CLI (setup using `aws configure`).
 * Set necessary variables in `terraform.tfvars`. The docker login is needed to pull the tank image.
@@ -22,13 +27,9 @@ The following steps are needed to setup a Tank database:
 * A simple NGINX load balancer is then running on the first EC2 instance.
 * `terraform state show aws_instance.gateway` prints the state including the FQDN (public_dns) of the public endpoint.
 
-## Tank Terraform Azure
+## Tank Terraform Microsoft Azure
 
-Terraform workflow to Azure and Ansible Inventory file template
-
-This repo uses submodules. For cloning use `git clone --recursive`.
-
-The following steps are needed to setup a Tank database:
+The following steps are needed to setup everything up:
 
 * You will need a working AZ CLI (setup using `az login`).
 * Set necessary variables in `terraform.tfvars`. The docker login is needed to pull the tank image.
@@ -41,11 +42,7 @@ The following steps are needed to setup a Tank database:
 
 ## Tank Terraform OpenStack
 
-Terraform workflow to OpenStack and Ansible Inventory file template
-
-This repo uses submodules. For cloning use `git clone --recursive`.
-
-The following steps are needed to setup a Tank database:
+The following steps are needed to setup everything up:
 
 * You will need a working OpenStack CLI (setup using `source ./PROJECT-openrc.sh`).
 * Set necessary variables in `terraform.tfvars`. The docker login is needed to pull the tank image.
