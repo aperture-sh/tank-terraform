@@ -1,0 +1,3 @@
+[submodule "tank-ansible"]
+	path = tank-ansible
+	url = https://geocode.igd.fraunhofer.de/marauder/tank-ansible.git
