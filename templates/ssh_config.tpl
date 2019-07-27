@@ -1,12 +1,18 @@
 Host *
 	SendEnv LANG LC_*
 
-Host ${ network }
+Host ${ private_network }
   IdentityFile ${ ssh_key }
   ProxyCommand ssh ubuntu@${ bastion_node } -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p
+
+%{if public_network != ""}
+Host ${ public_network }
+  IdentityFile ${ ssh_key }
+  ProxyCommand ssh ubuntu@${ bastion_node } -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p
+%{ endif }
 
 Host ${ bastion_node }
   IdentityFile ${ ssh_key }
   ControlMaster auto
-  ControlPath ~/.ssh/ansible-%r@%h:%p
+  ControlPath ~/.ssh/ansible-%C
   ControlPersist 5m
