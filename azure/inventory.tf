@@ -1,5 +1,5 @@
 data  "template_file" "azure" {
-    template = "${file("../templates/hosts.tpl")}"
+    template = "${file("./templates/hosts.tpl")}"
     vars = {
         tank_nodes = "${join("\n", azurerm_network_interface.tank_nic.*.private_ip_address)}"
         cassandra_nodes = "${join("\n", azurerm_network_interface.cassandra_nic.*.private_ip_address)}"
@@ -15,5 +15,5 @@ data  "template_file" "azure" {
 
 resource "local_file" "azure_file" {
   content  = "${data.template_file.azure.rendered}"
-  filename = "../tank-ansible/azure-hosts"
+  filename = "./tank-ansible/azure-hosts"
 }
