@@ -13,7 +13,7 @@ Terraform provisions the infrastructure and Ansible will setup the needed softwa
 * This repo uses submodules. For cloning use `git clone --recursive`
 * Keep in mind only one cloud can be used in one terraform workspace
 
-## Tank Terraform AWS
+## Amazon Web Services (AWS)
 
 The following steps are needed to setup everything up:
 
@@ -25,7 +25,7 @@ The following steps are needed to setup everything up:
 * `terraform apply --var-file aws/terraform.tfvars aws` so setup infrastructre in AWS
 
 
-## Tank Terraform Microsoft Azure
+## Microsoft Azure
 
 The following steps are needed to setup everything up:
 
@@ -35,7 +35,7 @@ The following steps are needed to setup everything up:
 * `terraform ini ./azure` to setup terraform environment
 * `terraform apply --var-file azure/terraform.tfvars azure` so setup infrastructre in Azure
 
-## Tank Terraform OpenStack
+## OpenStack
 
 The following steps are needed to setup everything up:
 
