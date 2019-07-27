@@ -11,6 +11,7 @@ Terraform provisions the infrastructure and Ansible will setup the needed softwa
 ![](assets/img/openstack-logo.png)
 
 * This repo uses submodules. For cloning use `git clone --recursive`
+* Keep in mind only one cloud can be used in one terraform workspace
 
 ## Tank Terraform AWS
 
