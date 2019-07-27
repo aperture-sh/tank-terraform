@@ -8,7 +8,7 @@ Terraform provisions the infrastructure and Ansible will setup the needed softwa
 
 ![](assets/img/azure-logo.png)
 ![](assets/img/aws-logo.png)
-![](assets/img/aws-openstack.png)
+![](assets/img/openstack-logo.png)
 
 * This repo uses submodules. For cloning use `git clone --recursive`
 
