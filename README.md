@@ -13,9 +13,9 @@ Terraform provisions the infrastructure and Ansible will setup the needed softwa
 * This repo uses submodules. For cloning use `git clone --recursive`
 * Keep in mind only one cloud can be used in one terraform workspace
 
-## Amazon Web Services (AWS)
-
 The following steps are needed to setup everything up:
+
+## Amazon Web Services (AWS)
 
 * You will need a working AWS CLI (setup using `aws configure`).
 * Set necessary variables in `./aws/terraform.tfvars`. The docker login is needed to pull the tank image.
@@ -27,8 +27,6 @@ The following steps are needed to setup everything up:
 
 ## Microsoft Azure
 
-The following steps are needed to setup everything up:
-
 * You will need a working AZ CLI (setup using `az login`).
 * Set necessary variables in `./azure/terraform.tfvars`. The docker login is needed to pull the tank image.
 * Set number of nodes, instance_type or other variables as needed.
@@ -37,15 +35,13 @@ The following steps are needed to setup everything up:
 
 ## OpenStack
 
-The following steps are needed to setup everything up:
-
 * You will need a working OpenStack CLI (setup using `source ./PROJECT-openrc.sh`).
 * Set necessary variables in `./openstack/terraform.tfvars`. The docker login is needed to pull the tank image.
 * Set number of nodes, instance_type or other variables as needed.
 * `terraform init ./openstack` to setup terraform environment
 * `terraform apply --var-file openstack/terraform.tfvars openstack` so setup infrastructre in OpenStack
 
-## Ansible Provisioning afterwards
+## Ansible Component Provisioning
 
 * Wait until instances are running
 * `ansible-playbook -i ./tank-ansible/cloud-hosts tank-ansible/site.yml` to provision tank and needed components on nodes.
