@@ -43,7 +43,7 @@ variable "cassandra_instance_type" {
 }
 
 variable "image_id" {
-  # Ubuntu 18.04 LTS - HVM-SSD
+  # Ubuntu 18.04 LTS
   default = "e00b1a59-4e5b-4f2c-8bea-463970ad2dee"
 }
 
