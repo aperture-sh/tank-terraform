@@ -1,3 +1,5 @@
+## CREATES ssh_config FOR CONNECTING TO PRIVATE MACHINES THROUGH BASTION HOST ##
+
 data  "template_file" "ssh" {
     template = "${file("./templates/ssh_config.tpl")}"
     vars = {

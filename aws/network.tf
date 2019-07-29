@@ -1,3 +1,5 @@
+## CONTAINS NETWORK RESOURCES SUCH AS VPC, GATEWAYS, ELASTIC_IP, SECURITY_GROUPS ##
+
 resource "aws_vpc" "tank_vpc" {
   cidr_block = "${var.cidr}"
   enable_dns_hostnames = true

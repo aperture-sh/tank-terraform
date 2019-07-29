@@ -1,3 +1,5 @@
+## CONTAINS BLOCK VOLUMES FOR DB STORAGE ##
+
 resource "aws_ebs_volume" "cassandra" {
   availability_zone = "${var.region}a"
   size              = "${var.cassandra_disk_size}"
@@ -7,4 +9,12 @@ resource "aws_ebs_volume" "cassandra" {
   tags = {
     Name = "${var.ec2_cassandra_instance_prefix}-${count.index}"
   }
+}
+
+resource "aws_volume_attachment" "cassandra" {
+  device_name = "/dev/xvdf"
+  count = "${var.cassandra_node_count}"
+  volume_id   = "${element(aws_ebs_volume.cassandra.*.id, count.index)}"
+  instance_id = "${element(aws_instance.cassandra.*.id, count.index)}"
+  force_detach = true
 }

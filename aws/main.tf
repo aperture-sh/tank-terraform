@@ -1,14 +1,8 @@
+## MAIN FILE CONTAINING PROVIDER AND INSTANCE RESOURCES ##
+
 provider "aws" {
   profile = "${var.aws_profile}"
   region = "${var.region}"
-}
-
-resource "aws_volume_attachment" "cassandra" {
-  device_name = "/dev/xvdf"
-  count = "${var.cassandra_node_count}"
-  volume_id   = "${element(aws_ebs_volume.cassandra.*.id, count.index)}"
-  instance_id = "${element(aws_instance.cassandra.*.id, count.index)}"
-  force_detach = true
 }
 
 resource "aws_instance" "gateway" {

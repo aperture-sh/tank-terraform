@@ -1,3 +1,5 @@
+## CREATES ANSIBLE HOSTS FILE FROM TEMPLATE ##
+
 data  "template_file" "aws" {
     template = "${file("./templates/hosts.tpl")}"
     vars = {
