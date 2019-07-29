@@ -10,6 +10,7 @@ data  "template_file" "aws" {
         cassandra_data_dir = "/opt/data/db"
         bastion_node = aws_instance.gateway.public_dns
         proxy_node = aws_instance.gateway.private_ip
+        db_vol_device = "/dev/xvdf"
     }
 }
 

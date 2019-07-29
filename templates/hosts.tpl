@@ -23,7 +23,7 @@ cassandra_nodes
 cassandra_config_file=/etc/cassandra/cassandra.yaml
 cassandra_cluster_name=tankstore
 use_db_vol=true
-db_vol=/dev/xvdf
+db_vol=${ db_vol_device }
 number_of_seeds=${number_of_seeds}
 
 [cassandra_nodes]

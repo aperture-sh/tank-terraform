@@ -10,6 +10,7 @@ data  "template_file" "openstack" {
         docker_password = var.docker_password
         cassandra_data_dir = "/opt/data/db"
         bastion_node = openstack_networking_floatingip_v2.gateway_ip.address
+        db_vol_device = "/dev/vdb"
     }
 }
 

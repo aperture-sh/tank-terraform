@@ -10,6 +10,7 @@ data  "template_file" "azure" {
         docker_username = var.docker_username
         docker_password = var.docker_password
         cassandra_data_dir = "/opt/data/db"
+        db_vol_device = "/dev/xvdf"
     }
 }
 
