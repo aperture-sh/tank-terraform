@@ -8,7 +8,6 @@ provider "openstack" {
 
 resource "openstack_compute_instance_v2" "gateway" {
   name            = "tank-gateway"
-  image_id        = "${var.image_id}"
   flavor_name       = "${var.gateway_instance_type}"
   key_pair        = "${var.keypair}"
   security_groups = ["${openstack_networking_secgroup_v2.intern.name}", "${openstack_networking_secgroup_v2.http.name}", "${openstack_networking_secgroup_v2.ssh.name}"]
@@ -31,7 +30,6 @@ resource "openstack_compute_instance_v2" "gateway" {
 resource "openstack_compute_instance_v2" "tank" {
   name            = "tank-node-${count.index}"
   count = "${var.tank_node_count}"
-  image_id        = "${var.image_id}"
   flavor_name       = "${var.tank_instance_type}"
   key_pair        = "${var.keypair}"
   security_groups = ["${openstack_networking_secgroup_v2.intern.name}"]
@@ -54,7 +52,6 @@ resource "openstack_compute_instance_v2" "tank" {
 resource "openstack_compute_instance_v2" "cassandra" {
   name            = "cassandra-node-${count.index}"
   count = "${var.cassandra_node_count}"
-  image_id        = "${var.image_id}"
   flavor_name       = "${var.cassandra_instance_type}"
   key_pair        = "${var.keypair}"
   security_groups = ["${openstack_networking_secgroup_v2.intern.name}"]
