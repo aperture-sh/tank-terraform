@@ -44,5 +44,5 @@ The following steps are needed to setup everything up:
 ## Ansible Component Provisioning
 
 * Wait until instances are running
-* `ansible-playbook -i ./tank-ansible/cloud-hosts tank-ansible/site.yml` to provision tank and needed components on nodes.
+* `ansible-playbook -i ./ansible/cloud-hosts ansible/site.yml` to provision tank and needed components on nodes.
 * A simple NGINX load balancer is then running on the gateway virtual machine.

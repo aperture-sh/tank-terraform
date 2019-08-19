@@ -35,4 +35,4 @@ ${ tank_nodes }
 
 [tank_nodes:vars]
 navigator_config_file=/opt/navigator/config.json
-
+mapbox_key=${ mapbox_key }

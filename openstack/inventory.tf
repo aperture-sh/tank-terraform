@@ -11,10 +11,11 @@ data  "template_file" "openstack" {
         cassandra_data_dir = "/opt/data/db"
         bastion_node = openstack_networking_floatingip_v2.gateway_ip.address
         db_vol_device = "/dev/vdb"
+        mapbox_key = "${mapbox_key}"
     }
 }
 
 resource "local_file" "openstack_file" {
   content  = "${data.template_file.openstack.rendered}"
-  filename = "./tank-ansible/cloud-hosts"
+  filename = "./ansible/cloud-hosts"
 }

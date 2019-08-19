@@ -8,6 +8,7 @@ openstack_project = ""
 # openstack_password = ""
 docker_username = ""
 docker_password = ""
+mapbox_key = ""
 
 tank_node_count = 5
 cassandra_node_count = 5

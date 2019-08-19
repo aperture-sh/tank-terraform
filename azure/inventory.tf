@@ -11,10 +11,11 @@ data  "template_file" "azure" {
         docker_password = var.docker_password
         cassandra_data_dir = "/opt/data/db"
         db_vol_device = "/dev/xvdf"
+        mapbox_key = "${mapbox_key}"
     }
 }
 
 resource "local_file" "azure_file" {
   content  = "${data.template_file.azure.rendered}"
-  filename = "./tank-ansible/cloud-hosts"
+  filename = "./ansible/cloud-hosts"
 }

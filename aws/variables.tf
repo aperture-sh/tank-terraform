@@ -84,3 +84,7 @@ variable "docker_username" {
 variable "docker_password" {
   default = ""
 }
+
+variable "mapbox_key" {
+  default = ""
+}

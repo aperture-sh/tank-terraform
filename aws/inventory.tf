@@ -13,10 +13,11 @@ data  "template_file" "aws" {
         bastion_node = aws_instance.gateway.public_dns
         proxy_node = aws_instance.gateway.private_ip
         db_vol_device = "/dev/xvdf"
+        mapbox_key = "${mapbox_key}"
     }
 }
 
 resource "local_file" "aws_file" {
   content  = "${data.template_file.aws.rendered}"
-  filename = "./tank-ansible/cloud-hosts"
+  filename = "./ansible/cloud-hosts"
 }

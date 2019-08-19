@@ -5,6 +5,7 @@ tank_instance_type = "t2.large"
 cassandra_instance_type = "t2.large"
 docker_username = ""
 docker_password = ""
+mapbox_key = ""
 
 tank_node_count = 2
 cassandra_node_count = 3
