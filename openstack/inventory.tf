@@ -8,10 +8,10 @@ data  "template_file" "openstack" {
         proxy_node = openstack_compute_instance_v2.gateway.access_ip_v4
         docker_username = var.docker_username
         docker_password = var.docker_password
-        cassandra_data_dir = "/opt/data/db"
+        cassandra_data_dir = "/opt/data"
         bastion_node = openstack_networking_floatingip_v2.gateway_ip.address
         db_vol_device = "/dev/vdb"
-        mapbox_key = "${mapbox_key}"
+        mapbox_key = "${var.mapbox_key}"
     }
 }
 

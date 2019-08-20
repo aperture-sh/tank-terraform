@@ -9,11 +9,11 @@ data  "template_file" "aws" {
         vm_username = "ubuntu"
         docker_username = var.docker_username
         docker_password = var.docker_password
-        cassandra_data_dir = "/opt/data/db"
+        cassandra_data_dir = "/opt/data"
         bastion_node = aws_instance.gateway.public_dns
         proxy_node = aws_instance.gateway.private_ip
         db_vol_device = "/dev/xvdf"
-        mapbox_key = "${mapbox_key}"
+        mapbox_key = "${var.mapbox_key}"
     }
 }
 

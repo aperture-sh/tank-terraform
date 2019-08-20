@@ -22,6 +22,9 @@ cassandra_nodes
 [cassandra:vars]
 cassandra_config_file=/etc/cassandra/cassandra.yaml
 cassandra_cluster_name=tankstore
+cassandra_data_dir=${ cassandra_data_dir }/db
+cassandra_commitlog_dir=${ cassandra_data_dir }/commitlog
+cassandra_hint_dir=${ cassandra_data_dir }/hints
 use_db_vol=true
 db_vol=${ db_vol_device }
 number_of_seeds=${number_of_seeds}

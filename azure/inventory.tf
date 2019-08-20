@@ -9,9 +9,9 @@ data  "template_file" "azure" {
         vm_username = var.vm_username
         docker_username = var.docker_username
         docker_password = var.docker_password
-        cassandra_data_dir = "/opt/data/db"
+        cassandra_data_dir = "/opt/data"
         db_vol_device = "/dev/xvdf"
-        mapbox_key = "${mapbox_key}"
+        mapbox_key = "${var.mapbox_key}"
     }
 }
 
