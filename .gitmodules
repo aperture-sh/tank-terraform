@@ -1,3 +1,3 @@
 [submodule "ansible"]
 	path = ansible
-	url = git@github.com:marauder-io/tank-ansible.git
+	url = git@github.com:aperture-sh/tank-ansible.git
