@@ -10,6 +10,8 @@ data  "template_file" "openstack" {
         docker_password = var.docker_password
         cassandra_data_dir = "/opt/data"
         bastion_node = openstack_networking_floatingip_v2.gateway_ip.address
+        public_endpoint = openstack_networking_floatingip_v2.gateway_ip.address
+        cloud_provider = "openstack"
         db_vol_device = "/dev/vdb"
         mapbox_key = "${var.mapbox_key}"
     }

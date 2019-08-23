@@ -69,6 +69,10 @@ variable "number_of_cassandra_seeds" {
   default = "2"
 }
 
+variable "bastion_disk_size" {
+  default = "25"
+}
+
 variable "tank_disk_size" {
   default = "10"
 }

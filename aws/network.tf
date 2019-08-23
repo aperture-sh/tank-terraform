@@ -98,6 +98,151 @@ resource "aws_route_table_association" "tank_public_rt" {
   route_table_id = "${element(aws_route_table.tank_public_rt.*.id, count.index)}"
 }
 
+resource "aws_lb" "tank_alb" {
+  name               = "tank-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = ["${aws_security_group.http.id}"]
+  subnets            = "${aws_subnet.tank_public_subnet.*.id}"
+
+  enable_deletion_protection = true
+
+  # access_logs {
+  #   bucket  = "${aws_s3_bucket.lb_logs.bucket}"
+  #   prefix  = "test-lb"
+  #   enabled = true
+  # }
+
+  tags = {
+    Environment = "production"
+  }
+}
+
+resource "aws_lb_listener" "tank" {
+  load_balancer_arn = "${aws_lb.tank_alb.arn}"
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = "${aws_lb_target_group.tank.arn}"
+  }
+}
+
+resource "aws_lb_target_group" "tank" {
+  name     = "tank-lb-tg"
+  port     = 8888
+  protocol = "HTTP"
+  vpc_id   = "${aws_vpc.tank_vpc.id}"
+}
+
+resource "aws_lb_target_group" "navigator" {
+  name     = "navigator-lb-tg"
+  port     = 8081
+  protocol = "HTTP"
+  vpc_id   = "${aws_vpc.tank_vpc.id}"
+}
+
+resource "aws_lb_target_group" "exhauster" {
+  name     = "exhauster-lb-tg"
+  port     = 8082
+  protocol = "HTTP"
+  vpc_id   = "${aws_vpc.tank_vpc.id}"
+}
+
+resource "aws_lb_target_group" "grafana" {
+  name     = "grafana-lb-tg"
+  port     = 3000
+  protocol = "HTTP"
+  vpc_id   = "${aws_vpc.tank_vpc.id}"
+}
+
+resource "aws_lb_listener_rule" "navigator" {
+  listener_arn = "${aws_lb_listener.tank.arn}"
+  priority     = 100
+
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_lb_target_group.navigator.arn}"
+  }
+
+  condition {
+    field  = "path-pattern"
+    values = ["/navigator*"]
+  }
+}
+
+resource "aws_lb_listener_rule" "tank" {
+  listener_arn = "${aws_lb_listener.tank.arn}"
+  priority     = 101
+
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_lb_target_group.tank.arn}"
+  }
+
+  condition {
+    field  = "path-pattern"
+    values = ["/tank*"]
+  }
+}
+
+resource "aws_lb_listener_rule" "exhauster" {
+  listener_arn = "${aws_lb_listener.tank.arn}"
+  priority     = 102
+
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_lb_target_group.exhauster.arn}"
+  }
+
+  condition {
+    field  = "path-pattern"
+    values = ["/exhauster*"]
+  }
+}
+
+resource "aws_lb_listener_rule" "grafana" {
+  listener_arn = "${aws_lb_listener.tank.arn}"
+  priority     = 103
+
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_lb_target_group.grafana.arn}"
+  }
+
+  condition {
+    field  = "path-pattern"
+    values = ["/grafana*"]
+  }
+}
+
+resource "aws_lb_target_group_attachment" "tank" {
+  count = "${var.tank_node_count}"
+  target_group_arn = "${aws_lb_target_group.tank.arn}"
+  target_id        = "${element(aws_instance.tank.*.id, count.index)}"
+  port             = 8888
+}
+
+resource "aws_lb_target_group_attachment" "navigator" {
+  count = "${var.tank_node_count}"
+  target_group_arn = "${aws_lb_target_group.navigator.arn}"
+  target_id        = "${element(aws_instance.tank.*.id, count.index)}"
+  port             = 8081
+}
+
+resource "aws_lb_target_group_attachment" "exhauster" {
+  target_group_arn = "${aws_lb_target_group.exhauster.arn}"
+  target_id        = "${aws_instance.gateway.id}"
+  port             = 8082
+}
+
+resource "aws_lb_target_group_attachment" "grafana" {
+  target_group_arn = "${aws_lb_target_group.grafana.arn}"
+  target_id        = "${aws_instance.gateway.id}"
+  port             = 3000
+}
+
 resource "aws_security_group" "http" {
   name        = "tank-http"
   description = "Allow inbound HTTP traffic"

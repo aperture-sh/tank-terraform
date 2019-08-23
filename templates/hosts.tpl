@@ -9,6 +9,8 @@ teardownElk=False
 pruneData=True
 cassandra_data_dir=${ cassandra_data_dir }
 proxy_node_public_ip=${ bastion_node }
+public_endpoint=${ public_endpoint }
+cloud_provider=${ cloud_provider }
 
 [proxy_nodes]
 ${ proxy_node }

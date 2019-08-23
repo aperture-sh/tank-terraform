@@ -15,7 +15,7 @@ resource "aws_instance" "gateway" {
   
   root_block_device {
     volume_type = "standard"
-    volume_size = 50
+    volume_size = "${var.bastion_disk_size}"
     delete_on_termination = true
   }
 
@@ -24,7 +24,7 @@ resource "aws_instance" "gateway" {
     device_name = "/dev/sda"
   }
 
-  vpc_security_group_ids = [ "${aws_security_group.http.id}", "${aws_security_group.ssh.id}" ]
+  vpc_security_group_ids = [ "${aws_security_group.ssh.id}" ]
   associate_public_ip_address = true
   subnet_id = "${aws_subnet.tank_public_subnet[0].id}"
 }
