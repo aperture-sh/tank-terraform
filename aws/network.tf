@@ -105,7 +105,7 @@ resource "aws_lb" "tank_alb" {
   security_groups    = ["${aws_security_group.http.id}"]
   subnets            = "${aws_subnet.tank_public_subnet.*.id}"
 
-  enable_deletion_protection = true
+  enable_deletion_protection = false
 
   # access_logs {
   #   bucket  = "${aws_s3_bucket.lb_logs.bucket}"
