@@ -125,7 +125,7 @@ resource "aws_lb_listener" "tank" {
 
   default_action {
     type             = "forward"
-    target_group_arn = "${aws_lb_target_group.tank.arn}"
+    target_group_arn = "${aws_lb_target_group.navigator.arn}"
   }
 }
 
