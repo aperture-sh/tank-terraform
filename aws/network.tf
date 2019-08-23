@@ -10,8 +10,9 @@ resource "aws_vpc" "tank_vpc" {
 
 resource "aws_subnet" "tank_private_subnet" {
   vpc_id = "${aws_vpc.tank_vpc.id}"
-  cidr_block = "${var.private_subnet_cidr}"
-  availability_zone = "${var.region}a"
+  count = 2
+  cidr_block = "${var.private_subnet_cidr[count.index]}"
+  availability_zone = "${var.region}${ count.index == 0 ? "a" : "b" }"
 
   tags = {
     Name = "Tank Private Subnet"
@@ -20,8 +21,9 @@ resource "aws_subnet" "tank_private_subnet" {
 
 resource "aws_subnet" "tank_public_subnet" {
   vpc_id = "${aws_vpc.tank_vpc.id}"
-  cidr_block = "${var.public_subnet_cidr}"
-  availability_zone = "${var.region}a"
+  count = 2
+  cidr_block = "${var.public_subnet_cidr[count.index]}"
+  availability_zone = "${var.region}${ count.index == 0 ? "a" : "b" }"
 
   tags = {
     Name = "Tank Public Subnet"
@@ -30,6 +32,7 @@ resource "aws_subnet" "tank_public_subnet" {
 
 resource "aws_eip" "nat" {
   depends_on = ["aws_internet_gateway.tank_gateway"]
+  count = 2
   vpc      = true
 
   tags = {
@@ -38,8 +41,9 @@ resource "aws_eip" "nat" {
 }
 
 resource "aws_nat_gateway" "tank_gateway" {
-  subnet_id = "${aws_subnet.tank_public_subnet.id}"
-  allocation_id = "${aws_eip.nat.id}"
+  subnet_id = "${element(aws_subnet.tank_public_subnet.*.id, count.index)}"
+  count = 2
+  allocation_id = "${element(aws_eip.nat.*.id, count.index)}"
 
   tags = {
     Name = "Tank VPC IGW"
@@ -56,10 +60,11 @@ resource "aws_internet_gateway" "tank_gateway" {
 
 resource "aws_route_table" "tank_private_rt" {
   vpc_id = "${aws_vpc.tank_vpc.id}"
+  count = 2
 
   route {
     cidr_block = "0.0.0.0/0"
-    nat_gateway_id = "${aws_nat_gateway.tank_gateway.id}"
+    nat_gateway_id = "${element(aws_nat_gateway.tank_gateway.*.id, count.index)}"
   }
 
   tags = {
@@ -68,12 +73,14 @@ resource "aws_route_table" "tank_private_rt" {
 }
 
 resource "aws_route_table_association" "tank_private_rt" {
-  subnet_id = "${aws_subnet.tank_private_subnet.id}"
-  route_table_id = "${aws_route_table.tank_private_rt.id}"
+  count = 2
+  subnet_id = "${element(aws_subnet.tank_private_subnet.*.id, count.index)}"
+  route_table_id = "${element(aws_route_table.tank_private_rt.*.id, count.index)}"
 }
 
 resource "aws_route_table" "tank_public_rt" {
   vpc_id = "${aws_vpc.tank_vpc.id}"
+  count = 2
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -86,8 +93,9 @@ resource "aws_route_table" "tank_public_rt" {
 }
 
 resource "aws_route_table_association" "tank_public_rt" {
-  subnet_id = "${aws_subnet.tank_public_subnet.id}"
-  route_table_id = "${aws_route_table.tank_public_rt.id}"
+  count = 2
+  subnet_id = "${element(aws_subnet.tank_public_subnet.*.id, count.index)}"
+  route_table_id = "${element(aws_route_table.tank_public_rt.*.id, count.index)}"
 }
 
 resource "aws_security_group" "http" {

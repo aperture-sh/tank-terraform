@@ -26,7 +26,7 @@ resource "aws_instance" "gateway" {
 
   vpc_security_group_ids = [ "${aws_security_group.http.id}", "${aws_security_group.ssh.id}" ]
   associate_public_ip_address = true
-  subnet_id = "${aws_subnet.tank_public_subnet.id}"
+  subnet_id = "${aws_subnet.tank_public_subnet[0].id}"
 }
 
 resource "aws_instance" "tank" {
@@ -51,7 +51,7 @@ resource "aws_instance" "tank" {
 
   vpc_security_group_ids = [ "${aws_security_group.ssh.id}" ]
   associate_public_ip_address = false
-  subnet_id = "${aws_subnet.tank_private_subnet.id}"
+  subnet_id = "${aws_subnet.tank_private_subnet[ count.index % 2 == 0 ? 0 : 1].id}"
 }
 
 resource "aws_instance" "cassandra" {
@@ -66,5 +66,5 @@ resource "aws_instance" "cassandra" {
   
   vpc_security_group_ids = [ "${aws_security_group.ssh.id}" ]
   associate_public_ip_address = false
-  subnet_id = "${aws_subnet.tank_private_subnet.id}"
+  subnet_id = "${aws_subnet.tank_private_subnet[ count.index % 2 == 0 ? 0 : 1].id}"
 }
