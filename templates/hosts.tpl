@@ -11,6 +11,7 @@ cassandra_data_dir=${ cassandra_data_dir }
 proxy_node_public_ip=${ bastion_node }
 public_endpoint=${ public_endpoint }
 cloud_provider=${ cloud_provider }
+cloud_region=${ cloud_region }
 
 [proxy_nodes]
 ${ proxy_node }

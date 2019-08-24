@@ -13,6 +13,7 @@ data  "template_file" "aws" {
         bastion_node = aws_instance.gateway.public_dns
         public_endpoint = aws_lb.tank_alb.dns_name
         cloud_provider = "aws"
+        cloud_region = "${ var.region }"
         proxy_node = aws_instance.gateway.private_ip
         db_vol_device = "/dev/xvdf"
         mapbox_key = "${var.mapbox_key}"
