@@ -7,6 +7,7 @@ data  "template_file" "azure" {
         bastion_node = azurerm_public_ip.gateway_public_ip.ip_address
         public_endpoint = azurerm_public_ip.gateway_public_ip.ip_address
         cloud_provider = "azure"
+        cloud_region = "${ var.region }"
         proxy_node = azurerm_network_interface.gateway_nic.private_ip_address
         vm_username = var.vm_username
         docker_username = var.docker_username

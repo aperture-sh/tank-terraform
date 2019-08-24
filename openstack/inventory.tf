@@ -12,6 +12,7 @@ data  "template_file" "openstack" {
         bastion_node = openstack_networking_floatingip_v2.gateway_ip.address
         public_endpoint = openstack_networking_floatingip_v2.gateway_ip.address
         cloud_provider = "openstack"
+        cloud_region = ""
         db_vol_device = "/dev/vdb"
         mapbox_key = "${var.mapbox_key}"
     }
