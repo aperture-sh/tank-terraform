@@ -3,6 +3,8 @@ data  "template_file" "ssh" {
     vars = {
         private_network = "${join(".", slice(split(".", var.subnet_cidr), 0, 3)) }.*"
         public_network = ""
+        private_network2 = ""
+        public_network2 = ""
         bastion_node = openstack_networking_floatingip_v2.gateway_ip.address
         ssh_key = "${var.keyfile}"
         ssh_username = "ubuntu"
